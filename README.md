@@ -1,22 +1,15 @@
 This repository contains the assembler library for the group project.
 
 # Overview
-The assembler has two public functions:
-1. `pub fn split_message_into_fragments(message_content: MessageContent) -> Vec<Fragment>`
-2. `pub fn reassemble_fragments_into_message(fragments: &[Fragment],) -> Result<MessageContent, Box<dyn std::error::Error>>`
-
-One creates takes `MessageContent` as an argument, and returns a vector of `Fragment`s. The other takes a slice `&[Fragment]` and returns, in most cases, a `MessageContent`.
+Library provides a trait `Assembler` with two associated functions: `disassemble` and `reassemble` to fragmentize and reassemble data according to the AP protocol. It also provides a simple struct `NaiveAssembler` implementing the trait.
 
 # Usage
-Usage is simple as the overview sounds like
 ```rust
-let message_content = MessageContent::ReqMessageSend {
-    to: 12,
-    message: "This is a test message to a drone with ID 12"
-        .to_string()
-        .into_bytes(),
-};
+// Assume json is a String-type value
+let bytes: &[u8] = json.as_bytes();
+// Create fragments
+let fragments: Vec<Fragment> = NaiveAssembler::disassemble(bytes);
+// Reassemble fragments into byte vector
+let bytes: Vec<u8> = NaiveAssembler::reassemble(&fragments);
 
-let fragmentized_message_content = assembler::split_message_into_fragments(message_content);
-let reassembled_message_content = assembler::reassemble_fragments_into_message(&fragments).unwrap();
 ```
