@@ -1,5 +1,5 @@
-///! This library provides an Assembler trait with two functions `disassemble` and `reassemble`.
-///! There is a simple struct implementing this trait; `NaiveAssembler`.
+//! This library provides an Assembler trait with two functions `disassemble` and `reassemble`.
+//! There is a simple struct implementing this trait; `NaiveAssembler`.
 use wg_2024::packet::Fragment;
 
 pub mod naive_assembler;
